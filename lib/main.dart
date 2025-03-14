@@ -1,6 +1,16 @@
+import 'dart:developer';
+
+import 'package:artista/config/cache/cache_constants.dart';
+import 'package:artista/config/cache/cache_helper.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheHelper.init();
+  await CacheHelper.setSecureData(key: CacheConstants.name, value: "saber");
+  log("The name is: ${await CacheHelper.getSecureData(key: CacheConstants.name)}");
+  await CacheHelper.deleteAllSecureData();
+  log("The name is: ${await CacheHelper.getSecureData(key: CacheConstants.name)}");
   runApp(const MyApp());
 }
 
